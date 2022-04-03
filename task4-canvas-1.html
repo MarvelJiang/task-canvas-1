@@ -8,25 +8,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <div id="canvas"></div>
+   <canvas id="canvas"></canvas>
    <script>
-       canvas.onclick =(e)=>{
-        console.log(e.clientX)
-        console.log(e.clientY)
-        // console.log 调试大法
-        let div = document.createElement('div')
-        div.style.position = 'absolute'
-        div.style.left = e.clientX + 'px'
-        div.style.top = e.clientY + 'px'
-        div.style.width = '100px'
-        div.style.height = '100px'
-        div.style.marginLeft = '-50px'
-        div.style.marginTop = '-50px'
-        div.style.borderRadius = '50%'
-        div.style.background = 'blue'
-        canvas.appendChild(div)  
-        // 将div添加为canvas的子元素
-       }
+    let canvas = document.getElementById("canvas");
+    canvas.width = document.documentElement.clientWidth
+    canvas.height = document.documentElement.clientHeight
+    // 获取屏幕宽高
+    // 画线
+    let ctx = canvas.getContext("2d");
+
+    let painting = false
+
+    ctx.fillStyle = "pink";
+    ctx.strokeStyle = "none"
+
+    canvas.onmousedown = () => {
+        painting = true
+    }
+
+    canvas.onmousemove = (e) => {
+        if(painting === true){
+            ctx.beginPath();
+            ctx.arc(e.clientX,e.clientY,8,20,30);
+            ctx.fill();
+        }else{
+            console.log('no-painting')
+        }   
+    }
+
+    canvas.onmouseup = () => {
+        painting = false
+    }
+   
    </script>
 </body>
 </html>
